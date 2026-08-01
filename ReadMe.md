@@ -9,3 +9,7 @@ https://docs.godotengine.org/en/4.4/classes/class_crypto.html
 
 Purpose of this room:
 Prepare some code sample to be usable in the authentification to Websocket Server. 
+   
+
+
+   Test
