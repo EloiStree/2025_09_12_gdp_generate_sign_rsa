@@ -2,6 +2,10 @@
 git submodule add https://github.com/EloiStree/2025_09_12_gdp_generate_sign_rsa.git addons/2025_09_12_gdp_generate_sign_rsa
 ```
 
+```
+git clone https://github.com/EloiStree/2025_09_12_gdp_generate_sign_rsa.git addons/2025_09_12_gdp_generate_sign_rsa
+```
+
 
 # 2025_09_12_gdp_generate_sign_rsa
 
