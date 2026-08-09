@@ -10,8 +10,3 @@ https://docs.godotengine.org/en/4.4/classes/class_crypto.html
 Purpose of this room:
 Prepare some code sample to be usable in the authentification to Websocket Server.   
 https://github.com/EloiStree/2026_06_29_upm_text_byte_in_out_layer_mirror_rsa/tree/main/Runtime/pbit4096b58pkcs1sha256   
-
-
-
-
-
