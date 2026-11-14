@@ -1,17 +1,132 @@
+
 class_name GodotRsaBase58Utility
 extends Node
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+const ALPHABET: String = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+static func encode_bytes_to_string_base_58(input: PackedByteArray) -> String:
+	if input.is_empty():
+		return ""
+
+	# Count leading zeroes.
+	var zero_count: int = 0
+	while zero_count < input.size() and input[zero_count] == 0:
+		zero_count += 1
+
+	# Work on a copy of the input.
+	var number: PackedByteArray = input.duplicate()
+
+	# Maximum possible Base58 output size.
+	var temp: PackedByteArray = PackedByteArray()
+	temp.resize(input.size() * 2)
+
+	var j: int = temp.size()
+	var start_at: int = zero_count
+
+	# Convert base 256 to base 58.
+	while start_at < number.size():
+		var mod: int = _div_mod_58(number, start_at)
+
+		if number[start_at] == 0:
+			start_at += 1
+
+		j -= 1
+		temp[j] = ALPHABET.unicode_at(mod)
+
+	# Remove extra leading '1' characters.
+	while j < temp.size() and temp[j] == ALPHABET.unicode_at(0):
+		j += 1
+
+	# Restore leading zeroes as Base58 '1' characters.
+	while zero_count > 0:
+		zero_count -= 1
+		j -= 1
+		temp[j] = ALPHABET.unicode_at(0)
+
+	var output: PackedByteArray = temp.slice(j, temp.size())
+	return output.get_string_from_ascii()
 
 
+static func decode_string_base_58_to_bytes(input: String) -> PackedByteArray:
+	if input.is_empty():
+		return PackedByteArray()
+
+	var input58: PackedByteArray = PackedByteArray()
+	input58.resize(input.length())
+
+	# Convert Base58 characters to their numeric values.
+	for i in range(input.length()):
+		var char_code: int = input.unicode_at(i)
+		var digit: int = ALPHABET.find(char(char_code))
+
+		if digit < 0:
+			push_error("Illegal Base58 character '%s' at position %d" % [char(char_code), i])
+			return PackedByteArray()
+
+		input58[i] = digit
+
+	# Count leading zeroes.
+	var zero_count: int = 0
+	while zero_count < input58.size() and input58[zero_count] == 0:
+		zero_count += 1
+
+	# Convert base 58 to base 256.
+	var temp: PackedByteArray = PackedByteArray()
+	temp.resize(input.length())
+
+	var j: int = temp.size()
+	var start_at: int = zero_count
+
+	while start_at < input58.size():
+		var mod: int = _div_mod_256(input58, start_at)
+
+		if input58[start_at] == 0:
+			start_at += 1
+
+		j -= 1
+		temp[j] = mod
+
+	# Remove extra leading zeroes.
+	while j < temp.size() and temp[j] == 0:
+		j += 1
+
+	# Restore original leading zeroes.
+	return temp.slice(j - zero_count, temp.size())
+
+
+
+static func encode_to_utf8_as_base_58(input: String) -> String:
+	return encode_bytes_to_string_base_58(input.to_utf8_buffer())
+
+static func decode_from_utf8_as_base_58(input: String) -> String:
+	var data: PackedByteArray = decode_string_base_58_to_bytes(input)
+	return data.get_string_from_utf8()
+
+
+static func _div_mod_58(number: PackedByteArray, start_at: int) -> int:
+	var remainder: int = 0
+
+	for i in range(start_at, number.size()):
+		var temp: int = remainder * 256 + number[i]
+
+		number[i] = temp / 58
+		remainder = temp % 58
+
+	return remainder
+
+
+static func _div_mod_256(number58: PackedByteArray, start_at: int) -> int:
+	var remainder: int = 0
+
+	for i in range(start_at, number58.size()):
+		var temp: int = remainder * 58 + number58[i]
+
+		number58[i] = temp / 256
+		remainder = temp % 256
+
+	return remainder
+ 
 
 
 #using System;

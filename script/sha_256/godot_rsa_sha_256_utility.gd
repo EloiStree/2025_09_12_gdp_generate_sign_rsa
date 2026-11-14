@@ -2,7 +2,18 @@ class_name GodotRsaSha256Utility
 extends Node
 
 
+static func parse_text_to_sha_256_in_text_format(text: String) -> String:
+	var context := HashingContext.new()
+	context.start(HashingContext.HASH_SHA256)
+	var text_bytes: PackedByteArray = text.to_utf8_buffer()
+	context.update(text_bytes)
+	var hash_bytes: PackedByteArray = context.finish()
+	return hash_bytes.hex_encode()
 
+
+
+
+## IN UNITY C#
 #
 #
 #using System.Security.Cryptography;
