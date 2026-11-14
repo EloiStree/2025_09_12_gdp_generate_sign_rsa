@@ -1,11 +1,9 @@
+class_name GodotRsaEmitEncodedTextAsBase58
 extends Node
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+signal on_text_encoded_as_base_58(encoded_text: String)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func encode_text_as_base_58_format(text: String) -> void:
+	var encoded_text: String = GodotRsaBase58Utility.encode_to_utf8_as_base_58(text)	
+	on_text_encoded_as_base_58.emit(encoded_text)

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dp4tha1tfblnd" path="res://addons/2025_09_12_gdp_generate_sign_rsa/script/sha_256/godot_rsa_emit_sha_256_from_given_text.gd" id="1_64u71"]
 [ext_resource type="Script" uid="uid://jm5hmihmruwm" path="res://addons/2025_09_12_gdp_generate_sign_rsa/script/rsa_4096/godot_rsa_emit_new_keys.gd" id="2_a68dg"]
+[ext_resource type="Script" uid="uid://crd1dq20gcpas" path="res://addons/2025_09_12_gdp_generate_sign_rsa/script/base_58/godot_rsa_emit_encoded_text_as_base_58.gd" id="3_65jl7"]
+[ext_resource type="Script" uid="uid://dhqpp1shrxujk" path="res://addons/2025_09_12_gdp_generate_sign_rsa/script/base_58/godot_rsa_emit_decoded_text_from_base_58.gd" id="4_1du4y"]
 
 [node name="Demo2dSignVerifyManuallyRsa" type="Control" unique_id=465296764]
 layout_mode = 3
@@ -11,13 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel Example of SHA256" type="Panel" parent="." unique_id=1364097009]
-layout_mode = 0
-offset_top = 8.0
-offset_right = 608.0
-offset_bottom = 251.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel Example of SHA256" unique_id=247804495]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=19489750]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,39 +21,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GodotRsaEmitSha256FromGivenText" type="Node" parent="Panel Example of SHA256/VBoxContainer" unique_id=1054909700]
+[node name="Panel Example of SHA256" type="Panel" parent="VBoxContainer" unique_id=1364097009]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel Example of SHA256" unique_id=247804495]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GodotRsaEmitSha256FromGivenText" type="Node" parent="VBoxContainer/Panel Example of SHA256/VBoxContainer" unique_id=1054909700]
 script = ExtResource("1_64u71")
 metadata/_custom_type_script = "uid://dp4tha1tfblnd"
 
-[node name="Label Text to Submit" type="Label" parent="Panel Example of SHA256/VBoxContainer" unique_id=260733800]
+[node name="Label Text to Submit" type="Label" parent="VBoxContainer/Panel Example of SHA256/VBoxContainer" unique_id=260733800]
 layout_mode = 2
 text = "Change the text here"
 
-[node name="LineEdit" type="LineEdit" parent="Panel Example of SHA256/VBoxContainer" unique_id=1723477510]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Panel Example of SHA256/VBoxContainer" unique_id=1723477510]
 layout_mode = 2
 
-[node name="Label SHA256" type="Label" parent="Panel Example of SHA256/VBoxContainer" unique_id=2037309715]
+[node name="Label SHA256" type="Label" parent="VBoxContainer/Panel Example of SHA256/VBoxContainer" unique_id=2037309715]
 layout_mode = 2
 text = "Here is the SHA256 of it"
 
-[node name="TextEdit" type="TextEdit" parent="Panel Example of SHA256/VBoxContainer" unique_id=1951552217]
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Panel Example of SHA256/VBoxContainer" unique_id=1951552217]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Panel Generate Keys" type="Panel" parent="." unique_id=1982264307]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.24400002
-anchor_right = 0.975
-anchor_bottom = 0.554
-offset_top = -0.34802246
-offset_bottom = -0.11804199
+[node name="Panel Generate Keys" type="Panel" parent="VBoxContainer" unique_id=1982264307]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
 
-[node name="GodotRsaEmitNewKeysInRsa4096Format" type="Node" parent="Panel Generate Keys" unique_id=1484028381]
+[node name="GodotRsaEmitNewKeysInRsa4096Format" type="Node" parent="VBoxContainer/Panel Generate Keys" unique_id=1484028381]
 script = ExtResource("2_a68dg")
 metadata/_custom_type_script = "uid://jm5hmihmruwm"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel Generate Keys" unique_id=262831359]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel Generate Keys" unique_id=262831359]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,33 +68,66 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="Panel Generate Keys/VBoxContainer" unique_id=1501727069]
+[node name="Button" type="Button" parent="VBoxContainer/Panel Generate Keys/VBoxContainer" unique_id=1501727069]
 layout_mode = 2
 text = "Generate new keys"
 
-[node name="Label" type="Label" parent="Panel Generate Keys/VBoxContainer" unique_id=615811207]
+[node name="Label" type="Label" parent="VBoxContainer/Panel Generate Keys/VBoxContainer" unique_id=615811207]
 layout_mode = 2
 text = "Public Key"
 
-[node name="TextEdit" type="TextEdit" parent="Panel Generate Keys/VBoxContainer" unique_id=1727809494]
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/Panel Generate Keys/VBoxContainer" unique_id=1727809494]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="Panel Generate Keys/VBoxContainer" unique_id=1911137560]
+[node name="Label2" type="Label" parent="VBoxContainer/Panel Generate Keys/VBoxContainer" unique_id=1911137560]
 layout_mode = 2
 text = "Private Key"
 
-[node name="TextEdit2" type="TextEdit" parent="Panel Generate Keys/VBoxContainer" unique_id=2127628125]
+[node name="TextEdit2" type="TextEdit" parent="VBoxContainer/Panel Generate Keys/VBoxContainer" unique_id=2127628125]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="Panel Encode Decode" type="Panel" parent="." unique_id=699196751]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Panel Encode Decode" type="Panel" parent="VBoxContainer" unique_id=699196751]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
 
-[connection signal="on_text_parsed_to_sha_256" from="Panel Example of SHA256/VBoxContainer/GodotRsaEmitSha256FromGivenText" to="Panel Example of SHA256/VBoxContainer/TextEdit" method="set_text"]
-[connection signal="text_changed" from="Panel Example of SHA256/VBoxContainer/LineEdit" to="Panel Example of SHA256/VBoxContainer/GodotRsaEmitSha256FromGivenText" method="push_in_text_to_parse_to_sha_256"]
-[connection signal="on_private_key_generated" from="Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" to="Panel Generate Keys/VBoxContainer/TextEdit2" method="set_text"]
-[connection signal="on_public_key_generated" from="Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" to="Panel Generate Keys/VBoxContainer/TextEdit" method="set_text"]
-[connection signal="button_down" from="Panel Generate Keys/VBoxContainer/Button" to="Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" method="generate_and_emit_new_keys"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel Encode Decode" unique_id=460081352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GodotRsaEmitEncodedTextAsBase58" type="Node" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=750253046]
+script = ExtResource("3_65jl7")
+metadata/_custom_type_script = "uid://crd1dq20gcpas"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=373560072]
+layout_mode = 2
+
+[node name="TextEdit2" type="TextEdit" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=873181000]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="GodotRsaEmitDecodedTextFromBase58" type="Node" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=913852940]
+script = ExtResource("4_1du4y")
+metadata/_custom_type_script = "uid://dhqpp1shrxujk"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=1302105622]
+layout_mode = 2
+
+[node name="TextEdit4" type="TextEdit" parent="VBoxContainer/Panel Encode Decode/VBoxContainer" unique_id=880950265]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[connection signal="on_text_parsed_to_sha_256" from="VBoxContainer/Panel Example of SHA256/VBoxContainer/GodotRsaEmitSha256FromGivenText" to="VBoxContainer/Panel Example of SHA256/VBoxContainer/TextEdit" method="set_text"]
+[connection signal="text_changed" from="VBoxContainer/Panel Example of SHA256/VBoxContainer/LineEdit" to="VBoxContainer/Panel Example of SHA256/VBoxContainer/GodotRsaEmitSha256FromGivenText" method="push_in_text_to_parse_to_sha_256"]
+[connection signal="on_private_key_generated" from="VBoxContainer/Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" to="VBoxContainer/Panel Generate Keys/VBoxContainer/TextEdit2" method="set_text"]
+[connection signal="on_public_key_generated" from="VBoxContainer/Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" to="VBoxContainer/Panel Generate Keys/VBoxContainer/TextEdit" method="set_text"]
+[connection signal="button_down" from="VBoxContainer/Panel Generate Keys/VBoxContainer/Button" to="VBoxContainer/Panel Generate Keys/GodotRsaEmitNewKeysInRsa4096Format" method="generate_and_emit_new_keys"]
+[connection signal="on_text_encoded_as_base_58" from="VBoxContainer/Panel Encode Decode/VBoxContainer/GodotRsaEmitEncodedTextAsBase58" to="VBoxContainer/Panel Encode Decode/VBoxContainer/TextEdit2" method="set_text"]
+[connection signal="text_changed" from="VBoxContainer/Panel Encode Decode/VBoxContainer/LineEdit" to="VBoxContainer/Panel Encode Decode/VBoxContainer/GodotRsaEmitEncodedTextAsBase58" method="encode_text_as_base_58_format"]
+[connection signal="on_text_decoded_from_base_58" from="VBoxContainer/Panel Encode Decode/VBoxContainer/GodotRsaEmitDecodedTextFromBase58" to="VBoxContainer/Panel Encode Decode/VBoxContainer/TextEdit4" method="set_text"]
+[connection signal="text_changed" from="VBoxContainer/Panel Encode Decode/VBoxContainer/LineEdit2" to="VBoxContainer/Panel Encode Decode/VBoxContainer/GodotRsaEmitDecodedTextFromBase58" method="decode_text_from_base_58_format"]
